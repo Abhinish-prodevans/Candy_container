@@ -7,3 +7,12 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+.idea/*.*
+test
+.idea/candy.iml
+.idea/dictionaries/abhinishraj.xml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml

@@ -131,6 +131,7 @@ Candy.Game.prototype = {
 			}
 			console.log('added '+(candy.type+1)+' points');
 			scoreText.setText(score);
+			callAPI.setScore(score);
 			console.log('click!');
 			var eatTween = this.game.add.tween(candy);
 			eatTween.to({ x: 70, y: 820 }, 150, Phaser.Easing.Linear.None);
