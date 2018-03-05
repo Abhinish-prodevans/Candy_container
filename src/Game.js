@@ -1,4 +1,5 @@
 Candy.Game = function(game) {
+	console.log('game start')
 	player = null;
 	hungerMeter = null;
 	candy = null;
@@ -77,6 +78,7 @@ Candy.Game.prototype = {
 		var totalscore = storageAPI.get('totalscore');
 		candyUnlockLevels = [0,50,100,200,500,1000,5000];
 		candyActualLevel = 0;
+        console.log('Candy.Game.prototype => create: function()');
 		console.log('totalscore: '+totalscore);
 		console.log('len candyUnlockLevels.length: '+candyUnlockLevels.length);
 		for (var i=0,len=candyUnlockLevels.length; i<len; i++) {
@@ -99,6 +101,7 @@ Candy.Game.prototype = {
 		this.spawnCandy();
 	},
 	managePause: function() {
+        console.log('Candy.Game.prototype => managePause: function()');
 		if(!pauseButtonDisabled) {
 			gamePaused =! gamePaused;
 			if(!gamePaused) {
@@ -131,7 +134,11 @@ Candy.Game.prototype = {
 			}
 			console.log('added '+(candy.type+1)+' points');
 			scoreText.setText(score);
-			callAPI.setScore(score);
+			try {
+                callAPI.setScore(score);
+            } catch(e){
+			console.log(e);
+			}
 			console.log('click!');
 			var eatTween = this.game.add.tween(candy);
 			eatTween.to({ x: 70, y: 820 }, 150, Phaser.Easing.Linear.None);
@@ -186,7 +193,10 @@ Candy.Game.prototype = {
 	},
 	update: function() {
 		if(gameOver) {
+
+
 			if(!runOnce) {
+				console.log('this is the run once again');
 				var oldScore = storageAPI.get('highscore');
 				var totalscore = storageAPI.get('totalscore');
 				var newTotalscore = totalscore+score;
@@ -213,7 +223,7 @@ Candy.Game.prototype = {
 				gameOverText.bringToTop();
 				backButton.visible = true;
 				backButton.bringToTop();
-				restartButton.visible = true;
+				restartButton.visible = false;
 				restartButton.bringToTop();
 
 				pauseButtonDisabled = true;

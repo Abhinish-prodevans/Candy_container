@@ -1,36 +1,65 @@
+
+if (!process.env.API_SERVICE_NAME) {
+    var apiServiceName = process.env.API_SERVICE_NAME.toUpperCase() || 'crome',
+        apiHost = process.env[apiServiceName + '_SERVICE_HOST'],
+        apiPort = process.env[apiServiceName + '_SERVICE_PORT'];
+} else
+{
+ var apiHost = '0.0.0.0';
+    apiPort = 8080;
+}
+
 var callAPI = {
 
     loadDoc :function()
 {
     var xhttp = new XMLHttpRequest();
 
-    xhttp.open("GET", "http://127.0.0.1:3000/leaderboard", true);
+    xhttp.open("GET", `http://${apiHost}:${apiPort}/leaderboard`, true);
     xhttp.send();
     // console.log(xhttp.toString());
 },
-//
-// function setScore(score) {
-//     var xhttp = new XMLHttpRequest();
-//
-//     var score1 = '{"score":'+score+'}';
-//     var scorejson = JSON.parse(score1);
-//
-//     console.log(score1);
-//     xhttp.open("POST", "http://127.0.0.1:3000/setScore/5a9795e9fa48ebb803d8506d", true);
-//     xhttp.setRequestHeader("Content-type", "application/json");
-//     xhttp.send(score1);
-//
-//     // xhttp.setRequestHeader("Access-Control-Allow-Origin", "http://localhost:63342");
-//     // console.log(xhttp.toString());
-// }
+
 
     setScore :function (score) {
     var xhttp = new XMLHttpRequest();
 
-    xhttp.open("GET", `http://127.0.0.1:3000/setScore/5a9795e9fa48ebb803d8506d/${score}`, true);
+    var id = storageAPI.get('id');
+    console.log(id);
+    xhttp.open("GET", `http://${apiHost}:${apiPort}/setScore/${id}/${score}`, true);
 
     xhttp.send();
     // xhttp.setRequestHeader("Access-Control-Allow-Origin", "http://localhost:63342");
     // console.log(xhttp.toString());
-}
+},
+    createPlayer: function () {
+    var xhttp = new XMLHttpRequest();
+
+    var name = callAPI.requestName();
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200){
+            console.log(this.responseText);
+            storageAPI.set('id',this.responseText);
+        }
+    }
+
+    xhttp.open("GET", `http://${apiHost}:${apiPort}/player/${name}`, true);
+    xhttp.send();
+
+    },
+    requestName : function myFunction() {
+        var txt;
+        var person = prompt("Please enter your name:", "Harry Potter");
+        if (person == null || person == "") {
+            txt = "User cancelled the prompt.";
+        } else {
+            txt = "Hello " + person + "! How are you today?";
+        }
+        // document.getElementById("demo").innerHTML = txt;
+        return person;
+    },
+    removeId : function() {
+        storageAPI.remove('id');
+    }
 };

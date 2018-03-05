@@ -4,6 +4,7 @@ Candy.MainMenu = function(game) {
 	enclaveButton = null;
 	audioButton = null;
 	audioStatus = true;
+
 };
 Candy.MainMenu.prototype = {
 	create: function() {
@@ -16,7 +17,10 @@ Candy.MainMenu.prototype = {
 		highscoreText = this.game.add.text(540, 690, "0", { font: "40px ComicBook", fill: "#FFCC00", align: "right" });
 		totalscoreText = this.game.add.text(90, 825, "0", { font: "28px ComicBook", fill: "#000", align: "right" });
 
-		startButton = this.add.button(640-401-10, 960-143-10, 'button-start', function(){this.game.state.start('StoryHowto')}, this, 1, 0, 2);
+		startButton = this.add.button(640-401-10, 960-143-10, 'button-start', function(){
+            callAPI.removeId(storageAPI.remove('id'));
+			callAPI.createPlayer();
+			this.game.state.start('StoryHowto');}, this, 1, 0, 2);
 		achievementsButton = this.add.button(10, 960-66-15, 'button-achievements', function(){this.game.state.start('Achievements')}, this, 1, 0, 2);
 		blackmoonButton = this.add.button(10, 10, 'button-blackmoon', this.clickBlackmoon, this);
 		enclaveButton = this.add.button(153+10+10, 10, 'button-enclave', this.clickEnclave, this);
@@ -37,6 +41,8 @@ Candy.MainMenu.prototype = {
 		storageAPI.initUnset('audio',true);
 		var audioStatus = storageAPI.get('audio');
 		audioButton.animations.play(''+audioStatus);
+
+
 	},
 	manageAudio: function() {
 		audioStatus =! audioStatus;
