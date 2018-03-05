@@ -9,6 +9,7 @@ if (!process.env.API_SERVICE_NAME) {
     apiPort = 8080;
 }
 
+console.log(apiServiceName+'\n'+apiHost+'\n'+apiPort);
 var callAPI = {
 
     loadDoc :function()
