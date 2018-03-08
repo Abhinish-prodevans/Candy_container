@@ -88,7 +88,7 @@ Candy.Game.prototype = {
 		}
 		console.log('candy actual level: '+candyActualLevel+' (total: '+totalscore+')');
 
-		health = 25;
+		health = 1025;
         hungerMeter = this.add.sprite(235, 20, 'hunger-meter');
         for(var h=0; h<25; h++) {
         	hungerMeter.animations.add(''+(25-h), [h], 10, true);
@@ -158,6 +158,8 @@ Candy.Game.prototype = {
 		}
 		else if(spawnFrom == 'down') {
 			// fruit ninja style
+			
+			console.log('this is the spawnCandy');
 			var launchPosition = Math.floor(Math.random()*2)*(640); // -98 // 0 or 542
 			candy = this.add.button(launchPosition, 960, 'candy', this.clickCandy, this);
 			var horizontalDirection = (launchPosition) ? -1 : 1;

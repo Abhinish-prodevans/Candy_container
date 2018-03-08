@@ -18,12 +18,12 @@ Candy.MainMenu.prototype = {
 		totalscoreText = this.game.add.text(90, 825, "0", { font: "28px ComicBook", fill: "#000", align: "right" });
 
 		startButton = this.add.button(640-401-10, 960-143-10, 'button-start', function(){
-            callAPI.removeId(storageAPI.remove('id'));
-			callAPI.createPlayer();
+            // callAPI.removeId(storageAPI.remove('id'));
+            // callAPI.createPlayer();
 			this.game.state.start('StoryHowto');}, this, 1, 0, 2);
-		achievementsButton = this.add.button(10, 960-66-15, 'button-achievements', function(){this.game.state.start('Achievements')}, this, 1, 0, 2);
-		blackmoonButton = this.add.button(10, 10, 'button-blackmoon', this.clickBlackmoon, this);
-		enclaveButton = this.add.button(153+10+10, 10, 'button-enclave', this.clickEnclave, this);
+		// achievementsButton = this.add.button(10, 960-66-15, 'button-achievements', function(){this.game.state.start('Achievements')}, this, 1, 0, 2);
+		// blackmoonButton = this.add.button(10, 10, 'button-blackmoon', this.clickBlackmoon, this);
+		// enclaveButton = this.add.button(153+10+10, 10, 'button-enclave', this.clickEnclave, this);
 		
 		audioButton = this.add.button(640-111-10, 10, 'button-audio', this.manageAudio, this);
 		audioButton.animations.add('true', [0], 10, true);
