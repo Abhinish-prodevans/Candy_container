@@ -1,11 +1,12 @@
+var apiHost, apiPort;
 
-if (!process.env.API_SERVICE_NAME) {
-    var apiServiceName = process.env.API_SERVICE_NAME.toUpperCase() || 'crome',
-        apiHost = process.env[apiServiceName + '_SERVICE_HOST'],
-        apiPort = process.env[apiServiceName + '_SERVICE_PORT'];
+if (env.HOST && env.PORT) {
+        apiHost = env.HOST,
+        apiPort = env.PORT;
+    console.log(apiHost+":"+apiPort);
 } else
 {
- var apiHost = '0.0.0.0';
+    apiHost = '0.0.0.0';
     apiPort = 8080;
 }
 
@@ -39,10 +40,10 @@ var callAPI = {
     var name = callAPI.requestName();
 
     xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200){
-            console.log(this.responseText);
-            storageAPI.set('id',this.responseText);
-        }
+        if (this.readyState === 4 && this.status === 200) {
+    console.log(this.responseText);
+    storageAPI.set('id', this.responseText);
+}
     }
 
     xhttp.open("GET", `http://${apiHost}:${apiPort}/player/${name}`, true);
